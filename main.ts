@@ -1,20 +1,20 @@
-namespace light {
+namespace lightRacer {
     export class GameEngine {
-        public strip: light.LightStrip;
-        public sprites: LightSprite[];
+        public strip: lightRacer.LightStrip;
+        public cars: Car[];
         private lastTime: number;
 
         constructor(strip: LightStrip) {
             this.strip = strip;
-            this.sprites = [];
+            this.cars = [];
             this.lastTime = control.millis();
 
             this.strip.setBuffered(true); // don't auto-render            
         }
 
-        addSprite(): LightSprite {
-            const sp = new LightSprite();
-            this.sprites.push(sp);
+        addCar(): Car {
+            const sp = new Car();
+            this.cars.push(sp);
             return sp;
         }
 
@@ -27,27 +27,22 @@ namespace light {
         update() {
             const now = control.millis();
             const dt = (now - this.lastTime) / 1000;
-            for (const sprite of this.sprites) {
+            for (const sprite of this.cars) {
                 let p = sprite.pos + dt * sprite.velocity
                 sprite.pos = p;
             }
             this.lastTime = now;
         }
 
-        collisions() {
-
-        }
-
         paint() {
             this.strip.clear();
-            for (const sprite of this.sprites) {
+            for (const sprite of this.cars)
                 sprite.paint(this.strip);
-            }
             this.strip.show();
         }
     }
 
-    export class LightSprite {
+    export class Car {
         pos: number; // may be deciment
         velocity: number; // pixel per second
         color: number;
