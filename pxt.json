@@ -6,7 +6,7 @@
         "light": "*"
     },
     "testDependencies": {
-        "adafruit-circuit-playground": "*"
+        "adafruit-circuit-playground-express": "*"
     },
     "files": [
         "README.md",
